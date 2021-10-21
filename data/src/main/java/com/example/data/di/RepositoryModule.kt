@@ -1,9 +1,9 @@
 package com.example.data.di
 
 import com.example.data.MovieRepositoryImpl
+import com.example.data.remote.MovieRepository
 import com.example.data.remote.source.MovieDataSource
 import com.example.data.remote.source.MovieDataSourceImpl
-import com.example.domain.repository.MovieRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

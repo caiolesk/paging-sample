@@ -13,7 +13,6 @@ data class Movie(
     var release_date: String?,
     var vote_count: Int?,
     var vote_average: Number?,
-    var genre_ids: ArrayList<Int>?
-) : Serializable {
+    var genre_ids: ArrayList<Int>?,
     var genre_names: List<String>? = null
-}
+) : Serializable

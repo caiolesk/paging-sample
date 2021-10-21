@@ -1,40 +1,39 @@
 package com.example.data
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import com.example.data.remote.MovieRepository
+import com.example.data.remote.api.MovieApi
 import com.example.data.remote.source.MovieDataSource
-import com.example.domain.entities.Genres
+import com.example.data.remote.source.MovieDataSourceImpl
 import com.example.domain.entities.Movie
-import com.example.domain.repository.MovieRepository
-import io.reactivex.Observable
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class MovieRepositoryImpl @Inject constructor(
-    private val remoteDataSource: MovieDataSource
+    private val remoteDataSource: MovieDataSource,
+    private val movieApi: MovieApi
 ) : MovieRepository {
 
-    override fun fetchMovieDetails(movieId: Int): Observable<Movie> {
-        return remoteDataSource.fetchMovieDetails(movieId)
-            .flatMap { listFav ->
-                Observable.just(listFav)
-            }
-    }
+    override fun fetchMovieDetails(movieId: Int) =
+        remoteDataSource.fetchMovieDetails(movieId)
 
     override fun fetchMoviesSimilar(
-        movieId: Int,
-        page: Int
-    ): Observable<List<Movie>> {
-        return remoteDataSource.fetchMoviesSimilar(
-            movieId = movieId,
-            page = page
-        ).flatMap { listFav ->
-            Observable.just(listFav)
-        }
-    }
-
-    override fun fetchGenresList(): Observable<List<Genres>> {
-        return remoteDataSource.fetchGenresList()
-            .flatMap { listFav ->
-                Observable.just(listFav)
+        movieId: Int
+    ): Flow<PagingData<Movie>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 50,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = {
+                MovieDataSourceImpl(
+                    movieApi = movieApi
+                ).apply {
+                    id = movieId
+                }
             }
+        ).flow
     }
-
 }

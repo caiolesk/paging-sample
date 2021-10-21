@@ -38,4 +38,9 @@ dependencies {
     kapt dependencies.hiltCompiler
 
     testImplementation  testDependencies.testing
+
+    implementation dependencies.coroutinesAndroid
+    implementation dependencies.coroutinesCore
+    implementation dependencies.paging
+    implementation dependencies.loggingInterrceptorr
 }

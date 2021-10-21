@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Movies-mobile2you</string>
+    <string name="app_name">Sample paging</string>
     <string name="text_likes">Likes</string>
     <string name="popularity">Popularity</string>
     <string name="url_base_image_similar">https://image.tmdb.org/t/p/w154</string>

@@ -8,7 +8,7 @@ android {
 
     compileSdkVersion globalConfiguration["compileSDK"]
     defaultConfig {
-        applicationId "com.example.movies_mobile2you"
+        applicationId "com.example.paging_sample"
         minSdkVersion globalConfiguration["minSDK"]
         targetSdkVersion globalConfiguration["targetSDK"]
         multiDexEnabled true
@@ -73,6 +73,10 @@ dependencies {
 
     implementation dependencies.hiltAndroid
     kapt dependencies.hiltCompiler
+
+    implementation dependencies.coroutinesAndroid
+    implementation dependencies.coroutinesCore
+    implementation dependencies.paging
 
     implementation dependencies.anko
 
