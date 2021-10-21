@@ -1,12 +1,12 @@
-package com.example.movies_mobile2you.details
+package com.example.paging_sample.details
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.example.domain.entities.Movie
-import com.example.movies_mobile2you.R
-import com.example.movies_mobile2you.databinding.ActivityDetailBinding
+import com.example.paging_sample.R
+import com.example.paging_sample.databinding.ActivityDetailBinding
 import org.jetbrains.anko.intentFor
 
 class DetailActivity : AppCompatActivity() {

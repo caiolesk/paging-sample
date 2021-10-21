@@ -1,17 +1,19 @@
-package com.example.movies_mobile2you.home
+package com.example.paging_sample.home
 
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.domain.entities.Genres
 import com.example.domain.entities.Movie
-import com.example.movies_mobile2you.R
-import com.example.movies_mobile2you.databinding.ActivityMainBinding
-import com.example.movies_mobile2you.extension.visible
+import com.example.paging_sample.R
+import com.example.paging_sample.databinding.ActivityMainBinding
+import com.example.paging_sample.extension.visible
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import org.jetbrains.anko.contentView
 import javax.inject.Inject
 
@@ -26,43 +28,38 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
-
         setupRecyclerView()
         setupViewModel()
         viewModel.handle(HomeIntent.StartData)
     }
 
-    private fun setupRecyclerView() = with(binding.recyclerViewMoviesSimilar) {
-        layoutManager = LinearLayoutManager(context)
-        adapter = homeMovieAdapter
 
-        homeMovieAdapter.onClick = {
-            viewModel.handle(HomeIntent.OpenDetail(it))
-        }
+    private fun setupRecyclerView() = with(binding.recyclerViewMoviesSimilar) {
+        val layoutManager = LinearLayoutManager(context)
+        this.layoutManager = layoutManager
+        adapter = homeMovieAdapter.withLoadStateHeaderAndFooter(
+            header = ReposLoadStateAdapter { homeMovieAdapter.retry() },
+            footer = ReposLoadStateAdapter { homeMovieAdapter.retry() }
+        )
     }
 
     private fun setupViewModel() {
-        viewModel.state.observe(this) { state ->
+        viewModel.state.observe(this, { state ->
             when (state) {
-                is HomeState.Loading -> {
-                    setVisibilities(progressBar = state.loading)
-                }
                 is HomeState.SuccessDetail -> {
                     bindMovie(state.movie)
                 }
                 is HomeState.SuccessSimilarMovies -> {
-                    bindSimilarMovies(state.similarMovies, state.genres)
+                    bindSimilarMovies(state.similarMovies)
                 }
                 is HomeState.Error -> {
                     retrySnackBar()
                 }
             }
-        }
-
+        })
     }
 
     private fun bindMovie(movie: Movie) {
@@ -77,17 +74,29 @@ class HomeActivity : AppCompatActivity() {
         )
     }
 
-    private fun bindSimilarMovies(moviesSimilar: List<Movie>, genres: List<Genres>) {
-        homeMovieAdapter.genres = genres
-        homeMovieAdapter.movies = moviesSimilar.toMutableList()
+    private fun bindSimilarMovies(moviesSimilar: PagingData<Movie>) {
+        lifecycleScope.launch {
+            homeMovieAdapter.submitData(moviesSimilar)
+        }
+        setVisibilities(
+            imgHeart = true,
+            txtLike = true,
+            imgStar = true,
+            txtPopularity = true,
+            chkLike = true,
+            progressBar = false
+        )
     }
 
     private fun retrySnackBar() {
         contentView?.let {
-            Snackbar.make(it, R.string.texto_erro_internet_snack, Snackbar.LENGTH_INDEFINITE)
-                .setAction(R.string.texto_tente_novamente) {
-                    viewModel.handle(HomeIntent.StartData)
-                }.show()
+            Snackbar.make(
+                it,
+                R.string.texto_erro_internet_snack,
+                Snackbar.LENGTH_INDEFINITE
+            ).setAction(R.string.texto_tente_novamente) {
+                viewModel.handle(HomeIntent.StartData)
+            }.show()
         }
     }
 

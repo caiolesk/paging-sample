@@ -1,4 +1,4 @@
-package com.example.movies_mobile2you.viewmodel
+package com.example.paging_sample.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

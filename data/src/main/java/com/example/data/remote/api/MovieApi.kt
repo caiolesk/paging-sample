@@ -4,6 +4,7 @@ import com.example.data.remote.model.GenresListPayload
 import com.example.data.remote.model.MoviePayload
 import com.example.data.remote.model.MoviesPayload
 import io.reactivex.Observable
+import kotlinx.coroutines.flow.Flow
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -15,11 +16,18 @@ interface MovieApi {
     }
 
     @GET("movie/{movie_id}")
-    fun fetchMovieDetails(@Path("movie_id") movieId: Int, @Query("api_key") apiKey: String = API_KEY ): Observable<MoviePayload>
+    suspend fun fetchMovieDetails(
+        @Path("movie_id") movieId: Int,
+        @Query("api_key") apiKey: String = API_KEY
+    ): MoviePayload
 
     @GET("movie/{movie_id}/similar")
-    fun fetchMoviesSimilar(@Path("movie_id") movieId: Int, @Query("api_key") apiKey: String = API_KEY ): Observable<MoviesPayload>
+    suspend fun fetchMoviesSimilar(
+        @Path("movie_id") movieId: Int,
+        @Query("api_key") apiKey: String = API_KEY,
+        @Query("page") page: Int
+    ): MoviesPayload
 
     @GET("genre/movie/list")
-    fun fetchGenresList(@Query("api_key") apiKey: String = API_KEY ): Observable<GenresListPayload>
+    suspend fun fetchGenresList(@Query("api_key") apiKey: String = API_KEY): GenresListPayload
 }

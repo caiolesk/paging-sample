@@ -10,6 +10,9 @@ dependencies {
     implementation dependencies.rxJava
 
     implementation dependencies.hiltAndroid
+
+    implementation dependencies.coroutinesAndroid
+    implementation dependencies.coroutinesCore
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_8
