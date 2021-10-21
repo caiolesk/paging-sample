@@ -1,9 +1,9 @@
-package com.example.movies_mobile2you.home
+package com.example.paging_sample.home
 
 import androidx.lifecycle.viewModelScope
 import com.example.data.remote.MovieRepository
-import com.example.movies_mobile2you.extension.onCollect
-import com.example.movies_mobile2you.viewmodel.BaseViewModel
+import com.example.paging_sample.extension.onCollect
+import com.example.paging_sample.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

@@ -1,4 +1,4 @@
-package com.example.movies_mobile2you.home
+package com.example.paging_sample.home
 
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -8,9 +8,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.domain.entities.Movie
-import com.example.movies_mobile2you.R
-import com.example.movies_mobile2you.databinding.ActivityMainBinding
-import com.example.movies_mobile2you.extension.visible
+import com.example.paging_sample.R
+import com.example.paging_sample.databinding.ActivityMainBinding
+import com.example.paging_sample.extension.visible
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

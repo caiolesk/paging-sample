@@ -1,4 +1,4 @@
-package com.example.movies_mobile2you.adapter
+package com.example.paging_sample.adapter
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter

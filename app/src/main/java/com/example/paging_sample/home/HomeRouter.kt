@@ -1,9 +1,9 @@
-package com.example.movies_mobile2you.home
+package com.example.paging_sample.home
 
 import android.content.Context
 import android.content.Intent
 import com.example.domain.entities.Movie
-import com.example.movies_mobile2you.details.createDetailActivityIntent
+import com.example.paging_sample.details.createDetailActivityIntent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 

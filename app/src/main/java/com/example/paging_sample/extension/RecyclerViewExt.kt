@@ -1,4 +1,4 @@
-package com.example.movies_mobile2you.extension
+package com.example.paging_sample.extension
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView

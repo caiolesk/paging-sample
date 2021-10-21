@@ -1,4 +1,4 @@
-package com.example.movies_mobile2you.home
+package com.example.paging_sample.home
 
 sealed class HomeIntent {
     object StartData : HomeIntent()

@@ -1,4 +1,4 @@
-package com.example.movies_mobile2you.home
+package com.example.paging_sample.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,9 +9,9 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.domain.entities.Movie
-import com.example.movies_mobile2you.R
-import com.example.movies_mobile2you.databinding.AdapterMovieSimilarBinding
-import com.example.movies_mobile2you.databinding.ItemLoadStateBinding
+import com.example.paging_sample.R
+import com.example.paging_sample.databinding.AdapterMovieSimilarBinding
+import com.example.paging_sample.databinding.ItemLoadStateBinding
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.scopes.ActivityScoped
 import javax.inject.Inject
