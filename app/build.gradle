@@ -1,15 +1,14 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-
+apply plugin: 'dagger.hilt.android.plugin'
 
 android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
 
     compileSdkVersion globalConfiguration["compileSDK"]
     defaultConfig {
-        applicationId "com.example.movies_mobile2you"
+        applicationId "com.example.paging_sample"
         minSdkVersion globalConfiguration["minSDK"]
         targetSdkVersion globalConfiguration["targetSDK"]
         multiDexEnabled true
@@ -26,6 +25,7 @@ android {
 
     buildFeatures{
         dataBinding = true
+        viewBinding = true
     }
 
     compileOptions {
@@ -63,15 +63,22 @@ dependencies {
     implementation dependencies.ktx
     implementation dependencies.viewModel
     implementation dependencies.lifeCycle
-    implementation dependencies.koin
-    implementation dependencies.koinViewModel
+    implementation dependencies.fragmentKtx
 
     implementation dependencies.rxJava
     implementation dependencies.rxKotlin
     implementation dependencies.rxAndroid
 
+    implementation dependencies.retrofit
+
+    implementation dependencies.hiltAndroid
+    kapt dependencies.hiltCompiler
+
+    implementation dependencies.coroutinesAndroid
+    implementation dependencies.coroutinesCore
+    implementation dependencies.paging
+
     implementation dependencies.anko
 
     kapt dependencies.dataBinding
-
 }

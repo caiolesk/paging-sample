@@ -1,4 +1,4 @@
-package com.example.movies_mobile2you
+package com.example.paging_sample
 
 import org.junit.Test
 
